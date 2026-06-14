@@ -15,7 +15,7 @@ SimpleVector<T> :: SimpleVector() {
 template< class T >
 SimpleVector<T> :: ~SimpleVector() {
 
-    delete[] arr;
+    delete[] this->arr;
 
     std::cout << "The destructor was invoked here" << std::endl;
 
@@ -26,6 +26,7 @@ template< class T >
 SimpleVector<T> :: SimpleVector(const SimpleVector& obj) {
 
     this->size = obj.size;
+    std::cout << "obj.size is: " << obj.size << std::endl;
     this->arr  = new T[this->size];
 
     for(int x = 0; x < this->size; x++) {
@@ -59,7 +60,7 @@ template < class T >
 void SimpleVector<T> :: push_back(T element) {
 
     *(this->arr + this->size) = element;
-     this->size++;
+     this->size = this->size + 1;
 
 }
 
