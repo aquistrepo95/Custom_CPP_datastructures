@@ -3,7 +3,7 @@
 
 // constructor
 template < class T >
-SimpleVector_Move<T> :: SimpleVector_Move() {
+SimpleVector_Move<T> :: SimpleVector_Move() noexcept {
 
     this->size = 0;
     this->arr = new T[this->size];
@@ -13,7 +13,7 @@ SimpleVector_Move<T> :: SimpleVector_Move() {
 
 // destructor
 template < class T >
-SimpleVector_Move<T> :: ~SimpleVector_Move() {
+SimpleVector_Move<T> :: ~SimpleVector_Move() noexcept {
 
     delete[] this->arr;
 
@@ -55,7 +55,7 @@ SimpleVector_Move<T>& SimpleVector_Move<T> :: operator=(SimpleVector_Move&& obj)
 
 // push_back function to add new element to the current array
 template < class T >
-void SimpleVector_Move<T> :: push_back(const T element) {
+void SimpleVector_Move<T> :: push_back(const T& element) {
 
     *(this->arr + this->size) = element;
      this->size = this->size + 1;

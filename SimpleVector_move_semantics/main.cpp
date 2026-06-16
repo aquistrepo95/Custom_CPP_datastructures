@@ -63,5 +63,9 @@ int main() {
         std::cout << "Array elements for vec1 obj after copy assignent: " << vec1[x] << std::endl;
     }
 
+    std::cout << "################################### clear member function #############################" << std::endl; 
+    vec1.clear();
+    std::cout << "vec1 size after clear function: " << vec1.getSize() << std::endl;
+
     return 0;
 }
