@@ -33,8 +33,6 @@ class unique_ptr {
        // operator overloads
        T& operator*() const noexcept;
        T* operator->() const noexcept;  
-       T& operator[](int index) const noexcept;
-
 
 };
 
