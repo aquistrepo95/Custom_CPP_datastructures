@@ -26,8 +26,8 @@ class SimpleVector_Move{
 
         void push_back(const T& element);
         void pop_back();
-        bool isEmpty();
-        int  getSize();
+        bool isEmpty() const noexcept;
+        int  getSize() const noexcept;
         void clear();
 
         T& operator[](const int& index);

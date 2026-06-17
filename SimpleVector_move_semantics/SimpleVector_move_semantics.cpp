@@ -84,7 +84,7 @@ void SimpleVector_Move<T> :: pop_back() {
 
 // check if the array is empty return true: array is empty OR false: otherwise
 template < class T >
-bool SimpleVector_Move<T> :: isEmpty() {
+bool SimpleVector_Move<T> :: isEmpty() const noexcept {
 
     if(this->size == 0) {
         return true;
@@ -96,7 +96,7 @@ bool SimpleVector_Move<T> :: isEmpty() {
 
 // Get the size of the array
 template < class T >
-int SimpleVector_Move<T> :: getSize() {
+int SimpleVector_Move<T> :: getSize() const noexcept {
     
     return this->size;
 }
