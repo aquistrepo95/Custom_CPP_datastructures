@@ -29,8 +29,8 @@ int main() {
 
     // move constructor
     shared_ptr<int> ptr3 = std::move(ptr2);
-    std::cout << "ptr3's value after move constructor of ptr3 is: " << *ptr3 << std::endl; 
-    std::cout << "ptr3's ref count after move constructor of ptr3 is: " << ptr3.use_count() << std::endl;
+    std::cout << "ptr3's value after move constructor of ptr2 is: " << *ptr3 << std::endl; 
+    std::cout << "ptr3's ref count after move constructor of ptr2 is: " << ptr3.use_count() << std::endl;
 
     // reset function on ptr3
     ptr3.reset(new int (45));
@@ -42,17 +42,22 @@ int main() {
     std::cout << "ptr2's value after move assignment of ptr2 is: " << *ptr2 << std::endl; 
     std::cout << "ptr2's ref count after move assignment of ptr2 is: " << ptr2.use_count() << std::endl;
 
+    shared_ptr<int>ptr4 = ptr1;
+    //std::cout << ptr4.use_count() << std::endl;
+
     // swap function: swapping ptr1 with ptr2
-    ptr2.swap(ptr1);
+    ptr2.swap(ptr4);
     std::cout << "ptr2's value after swapping with ptr1 is: " << *ptr2 << std::endl; 
     std::cout << "ptr2's ref count after swapping with ptr1 is: " << ptr2.use_count() << std::endl;
+    std::cout << "ptr1's value after swapping with ptr2 is: " << *ptr4 << std::endl; 
+    std::cout << "ptr1's ref count after swapping with ptr2 is: " << ptr4.use_count() << std::endl;
 
     // get function
     std::cout << "stored pointer for ptr2 is: " << ptr2.get() << std::endl;
 
     // unique function
-    shared_ptr<int> ptr4 = make_shared<int>(12);
-    ptr4 = ptr2;
+    shared_ptr<int> ptr5 = make_shared<int>(12);
+    ptr5 = ptr2;
     /*
     if(ptr2.unique()) {
         std::cout << "This resource is managed by one pointer" << std::endl; 

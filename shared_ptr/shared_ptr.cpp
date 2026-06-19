@@ -25,7 +25,7 @@ shared_ptr<T> :: shared_ptr(T* raw_pointer) {
 
 // destructor
 template < class T >
-shared_ptr<T> :: ~shared_ptr() noexcept {
+shared_ptr<T> :: ~shared_ptr() {
 
     reset();
 
@@ -117,6 +117,7 @@ void shared_ptr<T> :: reset(T* new_pointer /* default parameter */) noexcept {
 
         else {
             this->ref_count = nullptr;
+            this->pointer   = nullptr;
         }
     }
 
@@ -133,9 +134,19 @@ template < class T >
 void shared_ptr<T> :: swap(shared_ptr& obj) noexcept {
 
     if(this != &obj) {
-        T* temp_pointer = this->pointer;
+        T* temp_pointer = nullptr;
+        //swap the pointer
+        temp_pointer    = this->pointer;
         this->pointer   = obj.pointer;
         obj.pointer     = temp_pointer;
+
+        temp_pointer = nullptr;
+        
+        //swap the reference counts
+        temp_pointer    = this->ref_count;
+        this->ref_count = obj.ref_count;
+        obj.ref_count   = temp_pointer; 
+        
     } 
 
 }
@@ -148,7 +159,7 @@ int shared_ptr<T> :: use_count() const noexcept {
 
 }
 
-// unique() member function to verify if the current resource is managed by only one pointer 
+// unique() member function to verify if the current resource is managed by the current shared_ptr object
 template < class T >
 bool shared_ptr<T> :: unique() const noexcept {
 

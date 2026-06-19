@@ -14,7 +14,7 @@ class shared_ptr{
         explicit shared_ptr(T* raw_pointer);
 
         //destructor
-        ~shared_ptr() noexcept;
+        ~shared_ptr();
 
         //copy semantics
         shared_ptr(const shared_ptr& obj);
