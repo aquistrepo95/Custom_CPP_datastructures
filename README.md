@@ -15,7 +15,7 @@
  * Simple Vector Template class with copy semantics.
  * Simple Vector Template class with copy and move semantics.
  * Shared Pointers without weak pointer implementation, but with copy and move semantics.
- * Unique Pointers with copy and move semantics.
+ * Unique Pointers with move semantics.
  * Shared Pointers with support from weak pointers and copy and move semantics.
 
    
