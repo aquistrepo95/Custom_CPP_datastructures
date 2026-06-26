@@ -41,13 +41,11 @@ shared_ptr<T> :: shared_ptr(T* weak_pointer, control_block* weak_cb) {
 template < class T >
 shared_ptr<T> :: ~shared_ptr() {
 
-    std::cout << "destroying: " << this->shared_pointer << " : " << this->shared_cb << std::endl;
-    
     if(this->shared_pointer != 0 && this->shared_cb != 0) {
+        std::cout << "destroying: " << this->shared_pointer << " : " << this->shared_cb << std::endl;
         reset();
+        std::cout << "The destructor for the shared_ptr was invoked" << std::endl;
     }
-
-    std::cout << "The destructor for the shared_ptr was invoked" << std::endl;
 
 }
 
@@ -70,19 +68,6 @@ shared_ptr<T>& shared_ptr<T> :: operator=(const shared_ptr& obj) {
 
     if(this != &obj) {
         reset();
-        /*
-        if(this->shared_cb->strong_ref_count > 0) {
-            this->shared_cb->strong_ref_count--;
-
-            if(this->shared_cb->strong_ref_count == 0) {
-                delete this->shared_pointer;
-            }
-
-            else{
-                this->shared_pointer = nullptr;
-                this->shared_cb  = nullptr;
-            }
-        }*/
 
         this->shared_pointer   = obj.shared_pointer;
         this->shared_cb        = obj.shared_cb;
@@ -106,9 +91,6 @@ shared_ptr<T> :: shared_ptr(shared_ptr&& obj) noexcept{
 
     obj.shared_pointer = nullptr;
     obj.shared_cb      = nullptr;
-
-    std::cout << "obj.shared_pointer: " << obj.shared_pointer << std::endl;
-    std::cout << "obj.shared_cb: " << obj.shared_cb << std::endl;
     
 }
 
@@ -153,7 +135,6 @@ void shared_ptr<T> :: reset(T* new_pointer /* default parameter */) noexcept { /
         }
         
         if(this->shared_cb->strong_ref_count > 0){
-            //this->shared_pointer = nullptr;
             this->shared_cb      = nullptr; 
         }
         
