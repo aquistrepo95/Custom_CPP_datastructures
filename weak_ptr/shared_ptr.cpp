@@ -14,11 +14,11 @@ constexpr shared_ptr<T> :: shared_ptr() noexcept {
 
 // constructor
 template < class T >
-shared_ptr<T> :: shared_ptr(T* raw_pointer) {
+constexpr shared_ptr<T> :: shared_ptr(T* raw_pointer) {
 
-    shared_pointer = raw_pointer;
+    this->shared_pointer = raw_pointer;
 
-    if(shared_pointer) {
+    if(this->shared_pointer) {
         this->shared_cb      = new control_block();
         this->shared_cb->strong_ref_count++;
     } 
@@ -42,12 +42,10 @@ template < class T >
 shared_ptr<T> :: ~shared_ptr() {
 
     std::cout << "destroying: " << this->shared_pointer << " : " << this->shared_cb << std::endl;
-
-    if(this->shared_pointer == 0 && this->shared_cb == 0) {
-        std::exit(0);
+    
+    if(this->shared_pointer != 0 && this->shared_cb != 0) {
+        reset();
     }
-
-    reset();
 
     std::cout << "The destructor for the shared_ptr was invoked" << std::endl;
 
@@ -72,6 +70,19 @@ shared_ptr<T>& shared_ptr<T> :: operator=(const shared_ptr& obj) {
 
     if(this != &obj) {
         reset();
+        /*
+        if(this->shared_cb->strong_ref_count > 0) {
+            this->shared_cb->strong_ref_count--;
+
+            if(this->shared_cb->strong_ref_count == 0) {
+                delete this->shared_pointer;
+            }
+
+            else{
+                this->shared_pointer = nullptr;
+                this->shared_cb  = nullptr;
+            }
+        }*/
 
         this->shared_pointer   = obj.shared_pointer;
         this->shared_cb        = obj.shared_cb;
@@ -95,6 +106,9 @@ shared_ptr<T> :: shared_ptr(shared_ptr&& obj) noexcept{
 
     obj.shared_pointer = nullptr;
     obj.shared_cb      = nullptr;
+
+    std::cout << "obj.shared_pointer: " << obj.shared_pointer << std::endl;
+    std::cout << "obj.shared_cb: " << obj.shared_cb << std::endl;
     
 }
 
@@ -138,8 +152,8 @@ void shared_ptr<T> :: reset(T* new_pointer /* default parameter */) noexcept { /
             delete this->shared_cb;
         }
         
-       else if(this->shared_cb->strong_ref_count > 0){
-            this->shared_pointer = nullptr;
+        if(this->shared_cb->strong_ref_count > 0){
+            //this->shared_pointer = nullptr;
             this->shared_cb      = nullptr; 
         }
         
@@ -147,7 +161,7 @@ void shared_ptr<T> :: reset(T* new_pointer /* default parameter */) noexcept { /
 
     this->shared_pointer = new_pointer;
 
-    if(new_pointer) {
+    if(new_pointer != nullptr) {
         if(this->shared_cb == nullptr){
             this->shared_cb  = new control_block();
             this->shared_cb->strong_ref_count++;
