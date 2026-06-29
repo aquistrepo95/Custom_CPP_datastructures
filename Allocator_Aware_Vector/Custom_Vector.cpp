@@ -1,7 +1,6 @@
 #include <iostream>
 #include <memory>
 #include <initializer_list>
-#include "allocator/allocator.h"
 #include "Custom_Vector.h"
 
 // constructor
@@ -217,4 +216,19 @@ T& custom_vector<T, Allocator> :: operator[](const int& index) {
 
     std::cerr << "index "<< index << " is out of range" << std::endl;
     std::exit(EXIT_FAILURE);
+}
+
+// iterator functions
+// return type(iterator) from begin() and pass the local pointer of custom_vector to the iterator class i.e the 1st element in the vector
+template < class T, class Allocator >
+typename custom_vector< T, Allocator >::iterator custom_vector< T, Allocator >:: begin() noexcept {
+
+    return iterator(this->ptr);
+}
+
+// return type(iterator) from end() and pass the local pointer + size of custom_vector to the iterator class i.e the last+1 element in the vector
+template < class T, class Allocator >
+typename custom_vector< T, Allocator >::iterator custom_vector< T, Allocator >:: end() noexcept {
+
+    return iterator(this->ptr + this->size);
 }

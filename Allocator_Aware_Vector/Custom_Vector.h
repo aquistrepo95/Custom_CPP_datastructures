@@ -3,6 +3,7 @@
 #include <memory>
 #include <initializer_list>
 #include "allocator/allocator.cpp"
+#include "genericIterator/genericIterator.cpp"
 
 template< class T, class Allocator = allocator<T> >
 class custom_vector{  
@@ -16,6 +17,9 @@ class custom_vector{
         // aliases for wrapper for allocator_traits
         using traits  = std::allocator_traits<Allocator>;
         using pointer = typename traits::pointer;
+
+        // generic iterator class
+        using iterator = genericIterator<T>;
        
         // constructors
         //custom_vector() = default;
@@ -43,6 +47,10 @@ class custom_vector{
 
         // operator overload
         T& operator[](const int&);
+
+        // iterator functions
+        iterator begin() noexcept;
+        iterator end() noexcept;
 
     private:
         Allocator alloc;
