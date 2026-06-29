@@ -1,5 +1,5 @@
-#ifndef SIMPLEVECTOR_MOVE
-#define SIMPLEVECTOR_MOVE
+#ifndef CUSTOM_VECTOR_H
+#define CUSTOM_VECTOR_H
 #include <memory>
 #include <initializer_list>
 #include "allocator/allocator.cpp"
@@ -52,4 +52,4 @@ class custom_vector{
 
 };
 
-#endif 
+#endif //CUSTOM_VECTOR_H
