@@ -6,13 +6,9 @@
 template < class T >
 constexpr T* allocator<T> :: allocate(std::size_t size) {
     // ensure size requested is not zero(0), return nullptr if size requested is 0
-    /*
     if(size == 0) {
         return nullptr;
     }
-
-    commented out to allow empty initialization
-    */
 
 
     // throw exception if the size of memory reuested is too large
