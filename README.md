@@ -11,7 +11,8 @@
  * Templates.
  * Data Structures.
  * Lvalues and Rvalues.
- * Memory Allocator.
+ * Memory Allocators.
+ * Iterators.
 
 ## The Projects are as follows:
  * Simple Vector Template class with copy semantics.
@@ -21,5 +22,7 @@
  * Shared Pointers Template class with support for weak pointers and copy and move semantics.
  * Memory Allocator Template class.
  * Memory Allocator Aware Vector.
+ * Iterator.
 
+NB: GTESTs will be added shortly
    
