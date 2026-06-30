@@ -89,6 +89,10 @@ int main() {
         std::cout << "Elemenet in vect9 is: "<< m << std::endl;
     }
 
+    auto it = vect9.begin();
+
+    std::cout << *it + 3 << std::endl;
+
     }
 
     return 0;
