@@ -23,3 +23,5 @@
  * Memory Allocator Template class.
  * Memory Allocator Aware Vector.
  * Iterator.
+
+NB: GTESTs will be added shortly
