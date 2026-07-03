@@ -5,7 +5,7 @@
 template < class T >
 constexpr unique_ptr<T> :: unique_ptr() noexcept {
 
-    T* pointer = nullptr;
+    pointer = nullptr;
 
 }
 
@@ -13,14 +13,14 @@ constexpr unique_ptr<T> :: unique_ptr() noexcept {
 template < class T >
 unique_ptr<T> :: unique_ptr(T* raw_ptr) noexcept {
 
-    this->pointer = raw_ptr;
+    pointer = raw_ptr;
 
     std::cout << "constructor was invoked" << std::endl;
 }
 
 // destructor
 template < class T >
-unique_ptr<T> :: ~unique_ptr() noexcept {
+unique_ptr<T> :: ~unique_ptr() {
 
     reset();
 
@@ -54,15 +54,15 @@ unique_ptr<T>& unique_ptr<T> :: operator=(unique_ptr&& obj) noexcept {
 template < class T >
 T* unique_ptr<T> :: get() const noexcept {
 
-    return this->pointer;
+    return pointer;
 }
 
 // release() member function to release ownership and return a pointer to a managed resource
 template < class T >
 T* unique_ptr<T> :: release() noexcept {
 
-    T* old_pointer = this->pointer;
-    this->pointer = nullptr;
+    T* old_pointer = pointer;
+    pointer = nullptr;
     return old_pointer;
 
 }
@@ -71,11 +71,11 @@ T* unique_ptr<T> :: release() noexcept {
 template < class T >
 void unique_ptr<T> :: reset(T* new_pointer /* new_pointer is set to nullptr*/) noexcept {
      
-     if(this->pointer != nullptr) {
-        delete this->pointer; 
+     if(pointer != nullptr) {
+        delete pointer; 
      }
 
-     this->pointer = new_pointer;   
+     pointer = new_pointer;   
 }
 
 // swap() member function to swap a managed resource for another
@@ -92,7 +92,7 @@ void unique_ptr<T> :: swap(unique_ptr& obj) noexcept {
 template < class T >
 T& unique_ptr<T> :: operator*() const noexcept {
 
-    return *this->pointer;
+    return *pointer;
 
 }
 
@@ -100,6 +100,6 @@ T& unique_ptr<T> :: operator*() const noexcept {
 template < class T >
 T* unique_ptr<T> :: operator->() const noexcept {
 
-    return this->pointer;
+    return pointer;
 
 }

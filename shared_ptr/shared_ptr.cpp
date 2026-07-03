@@ -5,8 +5,8 @@
 template < class T >
 constexpr shared_ptr<T> :: shared_ptr() noexcept {
 
-    T* pointer    = nullptr;
-    T* ref_count  = nullptr;
+    pointer    = nullptr;
+    ref_count  = nullptr;
 
 }
 
@@ -15,8 +15,8 @@ template < class T >
 shared_ptr<T> :: shared_ptr(T* raw_pointer) {
 
     if(raw_pointer != nullptr) {
-        this->pointer   = raw_pointer;
-        this->ref_count = new int(1);
+        pointer   = raw_pointer;
+        ref_count = new int(1);
     }    
 
     std::cout << "constructor was invoked" << std::endl;
@@ -99,7 +99,7 @@ shared_ptr<T>& shared_ptr<T> :: operator=(shared_ptr&& obj) noexcept {
 template < class T >
 T* shared_ptr<T> :: get() const noexcept {
 
-    return this->pointer;
+    return pointer;
 
 }
 
@@ -107,24 +107,24 @@ T* shared_ptr<T> :: get() const noexcept {
 template < class T >
 void shared_ptr<T> :: reset(T* new_pointer /* default parameter */) noexcept {
 
-    if(this->ref_count) {
-        (*this->ref_count)--;
+    if(ref_count) {
+        (*ref_count)--;
 
-        if((*this->ref_count) == 0) {
-            delete this->pointer;
-            delete this->ref_count;
+        if((*ref_count) == 0) {
+            delete pointer;
+            delete ref_count;
         }
 
         else {
-            this->ref_count = nullptr;
-            this->pointer   = nullptr;
+            ref_count = nullptr;
+            pointer   = nullptr;
         }
     }
 
-    this->pointer = new_pointer;
+    pointer = new_pointer;
 
     if(new_pointer) {
-        this->ref_count = new int(1);
+        ref_count = new int(1);
     }
 
 }
@@ -136,15 +136,15 @@ void shared_ptr<T> :: swap(shared_ptr& obj) noexcept {
     if(this != &obj) {
         T* temp_pointer = nullptr;
         //swap the pointer
-        temp_pointer    = this->pointer;
-        this->pointer   = obj.pointer;
+        temp_pointer    = pointer;
+        pointer         = obj.pointer;
         obj.pointer     = temp_pointer;
 
         temp_pointer = nullptr;
         
         //swap the reference counts
-        temp_pointer    = this->ref_count;
-        this->ref_count = obj.ref_count;
+        temp_pointer    = ref_count;
+        ref_count       = obj.ref_count;
         obj.ref_count   = temp_pointer; 
         
     } 
@@ -155,7 +155,7 @@ void shared_ptr<T> :: swap(shared_ptr& obj) noexcept {
 template < class T >
 int shared_ptr<T> :: use_count() const noexcept {
 
-    return *this->ref_count;
+    return *ref_count;
 
 }
 
@@ -163,7 +163,7 @@ int shared_ptr<T> :: use_count() const noexcept {
 template < class T >
 bool shared_ptr<T> :: unique() const noexcept {
 
-    if((*this->ref_count) == 1) {
+    if((*ref_count) == 1) {
         return true;
     }
 
@@ -178,7 +178,7 @@ bool shared_ptr<T> :: unique() const noexcept {
 template < class T >
 T& shared_ptr<T> :: operator*() const noexcept {
 
-    return *this->pointer;
+    return *pointer;
 
 }
 
@@ -186,6 +186,6 @@ T& shared_ptr<T> :: operator*() const noexcept {
 template < class T >
 T* shared_ptr<T> :: operator->() const noexcept {
 
-    return this->pointer;
+    return pointer;
 
 }

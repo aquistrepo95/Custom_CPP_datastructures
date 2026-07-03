@@ -11,7 +11,7 @@ class unique_ptr {
        // constructor and destructor
        constexpr unique_ptr() noexcept;
        explicit unique_ptr(T* raw_ptr) noexcept;
-       ~unique_ptr() noexcept;
+       ~unique_ptr();
 
        // copy semantics disabled
        unique_ptr(const unique_ptr& obj) = delete;
