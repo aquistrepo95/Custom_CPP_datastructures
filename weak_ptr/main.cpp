@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 #include "shared_ptr.cpp"
 #include "weak_ptr.cpp"
 
@@ -11,6 +12,7 @@ int main() {
 
     shared_ptr<int> ptr1 = make_shared<int>(67);
     std::cout << "The ptr1 shared pointer is: " << *ptr1 << std::endl;
+    std::cout << "ref_count of ptr2 is: " << ptr1.use_count() << std::endl;
     std::cout << "The address for the resource ptr1 is pointing to: " << ptr1.get() << std::endl;
     
     std::cout << "\n";
@@ -18,6 +20,7 @@ int main() {
     std::cout << "The ptr2 shared pointer is: " << *ptr2 << std::endl;
     std::cout << "ref_count of ptr2 is: " << ptr2.use_count() << std::endl;
     std::cout << "The address for the resource ptr2 is pointing to: " << ptr2.get() << std::endl;
+    std::cout << "\n";
     
     std::cout << "\n";
     shared_ptr<int> ptr3 = make_shared<int>(90);
@@ -122,14 +125,13 @@ int main() {
     std::cout << "ref_count of wptr4 is:  " << wptr4.use_count() << std::endl;
     std::cout << "\n";
 
-
     }
-   
+    
     return 0;
 }
 
 
-// make_shared template function prototype
+// make_shared template function definition
 template < typename T, typename... Args > 
 shared_ptr<T> make_shared(Args&&... args){
 

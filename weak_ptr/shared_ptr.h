@@ -18,7 +18,7 @@ class shared_ptr {
 
         //constructors
         constexpr shared_ptr() noexcept; // compile time
-        explicit shared_ptr(T*);
+        constexpr shared_ptr(T*);
 
         
         //constructor overload to enable lock() function in weak pointer class

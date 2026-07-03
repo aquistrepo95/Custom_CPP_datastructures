@@ -7,8 +7,8 @@
 template < class T >
 constexpr weak_ptr<T> :: weak_ptr() noexcept {
    
-    T* weak_pointer        = nullptr;
-    control_block* weak_cb = nullptr;
+    weak_pointer   = nullptr;
+    weak_cb        = nullptr;
 
 }
 
@@ -16,11 +16,11 @@ constexpr weak_ptr<T> :: weak_ptr() noexcept {
 template < class T >
 weak_ptr<T> :: weak_ptr(const shared_ptr<T>& shared_ptr) {
 
-    this->weak_pointer = shared_ptr.shared_pointer;
-    this->weak_cb      = shared_ptr.shared_cb;
+    weak_pointer = shared_ptr.shared_pointer;
+    weak_cb      = shared_ptr.shared_cb;
 
-    if(this->weak_pointer) {
-        this->weak_cb->weak_ref_count++;
+    if(weak_pointer) {
+        weak_cb->weak_ref_count++;
     }
 }
 
@@ -29,11 +29,11 @@ template < class T >
 weak_ptr<T>& weak_ptr<T> :: operator=(const shared_ptr<T>& shared_ptr) {
 
         reset();
-        this->weak_pointer = shared_ptr.shared_pointer;
-        this->weak_cb      = shared_ptr.shared_cb;
+        weak_pointer = shared_ptr.shared_pointer;
+        weak_cb      = shared_ptr.shared_cb;
 
-        if(this->weak_pointer) {
-            this->weak_cb->weak_ref_count++;
+        if(weak_pointer) {
+            weak_cb->weak_ref_count++;
         }
 
     return *this;
@@ -84,12 +84,12 @@ weak_ptr<T>& weak_ptr<T> :: operator=(const weak_ptr<T>& obj) {
 template < class T >
 void weak_ptr<T> :: reset() noexcept {
 
-   if(this->weak_cb->weak_ref_count > 0) {
-        this->weak_cb->weak_ref_count--;
+   if(weak_cb->weak_ref_count > 0) {
+        weak_cb->weak_ref_count--;
    } 
 
-   this->weak_cb = nullptr;
-   this->weak_pointer = nullptr;
+   weak_cb = nullptr;
+   weak_pointer = nullptr;
 }
 
 // swap() function: swap weak_ptr objects
@@ -117,7 +117,7 @@ void weak_ptr<T> :: swap(weak_ptr<T>& obj) noexcept {
 template < class T >
 int weak_ptr<T> :: use_count() const noexcept {
 
-    return this->weak_cb ? this->weak_cb->strong_ref_count : 0;
+    return weak_cb ? weak_cb->strong_ref_count : 0;
 }
 
 // expired() function: verify if the current resource was already deleted

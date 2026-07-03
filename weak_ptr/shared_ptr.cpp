@@ -7,8 +7,8 @@
 template < class T >
 constexpr shared_ptr<T> :: shared_ptr() noexcept {
    
-    T* shared_pointer        = nullptr;
-    control_block* shared_cb = nullptr;
+    shared_pointer  = nullptr;
+    shared_cb       = nullptr;
 
 }
 
@@ -29,11 +29,11 @@ constexpr shared_ptr<T> :: shared_ptr(T* raw_pointer) {
 template < class T >
 shared_ptr<T> :: shared_ptr(T* weak_pointer, control_block* weak_cb) {
 
-        this->shared_pointer = weak_pointer;
-        this->shared_cb      = weak_cb;
+        shared_pointer = weak_pointer;
+        shared_cb      = weak_cb;
 
-        if(this->shared_pointer) {
-            this->shared_cb->strong_ref_count++;
+        if(shared_pointer) {
+            shared_cb->strong_ref_count++;
         }
 }
 
@@ -41,8 +41,10 @@ shared_ptr<T> :: shared_ptr(T* weak_pointer, control_block* weak_cb) {
 template < class T >
 shared_ptr<T> :: ~shared_ptr() {
 
-    if(this->shared_pointer != 0 && this->shared_cb != 0) {
-        std::cout << "destroying: " << this->shared_pointer << " : " << this->shared_cb << std::endl;
+    //std::cout << "destroying: " << shared_pointer << " : " << shared_cb << std::endl;
+
+    if(shared_pointer != 0 && shared_cb != 0) {
+        std::cout << "destroying: " << shared_pointer << " : " << shared_cb << std::endl;
         reset();
         std::cout << "The destructor for the shared_ptr was invoked" << std::endl;
     }
@@ -118,7 +120,7 @@ shared_ptr<T>& shared_ptr<T> :: operator=(shared_ptr&& obj) noexcept {
 template < class T >
 T* shared_ptr<T> :: get() const noexcept {
 
-    return this->shared_pointer;
+    return shared_pointer;
 
 }
 
@@ -126,26 +128,26 @@ T* shared_ptr<T> :: get() const noexcept {
 template < class T >
 void shared_ptr<T> :: reset(T* new_pointer /* default parameter */) noexcept { //will come back here
 
-    if(this->shared_cb->strong_ref_count > 0) {
-        this->shared_cb->strong_ref_count--;
+    if(shared_cb->strong_ref_count > 0) {
+        shared_cb->strong_ref_count--;
 
-        if(this->shared_cb->strong_ref_count == 0) {
-            delete this->shared_pointer;
-            delete this->shared_cb;
-        }
-        
-        if(this->shared_cb->strong_ref_count > 0){
-            this->shared_cb      = nullptr; 
+        if(shared_cb->strong_ref_count == 0) {
+            delete shared_pointer;
+            delete shared_cb;
         }
         
     }
 
-    this->shared_pointer = new_pointer;
+    if(shared_cb->strong_ref_count > 0) { // check this
+        shared_cb = nullptr;
+    }
 
-    if(new_pointer != nullptr) {
-        if(this->shared_cb == nullptr){
-            this->shared_cb  = new control_block();
-            this->shared_cb->strong_ref_count++;
+    shared_pointer = new_pointer;
+
+    if(new_pointer != nullptr) { //check this
+        if(shared_cb == nullptr){
+            shared_cb  = new control_block();
+            shared_cb->strong_ref_count++;
         }
     }
 
@@ -176,7 +178,7 @@ void shared_ptr<T> :: swap(shared_ptr& obj) noexcept {
 template < class T >
 int shared_ptr<T> :: use_count() const noexcept {
 
-    return this->shared_cb ? this->shared_cb->strong_ref_count : 0;
+    return shared_cb ? shared_cb->strong_ref_count : 0;
 
 }
 
@@ -184,7 +186,7 @@ int shared_ptr<T> :: use_count() const noexcept {
 template < class T >
 bool shared_ptr<T> :: unique() const noexcept {
 
-    if(this->shared_cb->strong_ref_count == 1) {
+    if(shared_cb->strong_ref_count == 1) {
         return true;
     }
 
@@ -199,13 +201,13 @@ bool shared_ptr<T> :: unique() const noexcept {
 template < class T >
 T& shared_ptr<T> :: operator*() const noexcept {
 
-    return *this->shared_pointer;
+    return *shared_pointer;
 }
 
 // overload the -> operator
 template < class T >
 T* shared_ptr<T> :: operator->() const noexcept {
 
-    return this->shared_pointer;
+    return shared_pointer;
 
 }
