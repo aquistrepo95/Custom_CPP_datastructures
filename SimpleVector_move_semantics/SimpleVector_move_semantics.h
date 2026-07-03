@@ -15,11 +15,13 @@ class SimpleVector_Move{
         int size;
 
     public:
-        explicit SimpleVector_Move() noexcept;
+        //constexpr SimpleVector_Move();
+        //explicit SimpleVector_Move();
+        explicit SimpleVector_Move();
         ~SimpleVector_Move() noexcept;
 
-        SimpleVector_Move(const SimpleVector_Move& obj) = delete;
-        SimpleVector_Move<T>& operator=(const SimpleVector_Move& obj) = delete;
+        SimpleVector_Move(const SimpleVector_Move& obj);
+        SimpleVector_Move<T>& operator=(const SimpleVector_Move& obj);
 
         SimpleVector_Move(SimpleVector_Move&& obj) noexcept;
         SimpleVector_Move<T>& operator=(SimpleVector_Move&& obj) noexcept;

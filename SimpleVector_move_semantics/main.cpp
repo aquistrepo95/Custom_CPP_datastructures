@@ -67,5 +67,6 @@ int main() {
     vec1.clear();
     std::cout << "vec1 size after clear function: " << vec1.getSize() << std::endl;
 
+
     return 0;
 }

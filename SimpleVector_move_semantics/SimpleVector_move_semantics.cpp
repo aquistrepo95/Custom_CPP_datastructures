@@ -3,11 +3,11 @@
 
 // constructor
 template < class T >
-SimpleVector_Move<T> :: SimpleVector_Move() noexcept {
+SimpleVector_Move<T> :: SimpleVector_Move() {
 
-    this->size = 0;
-    this->arr = new T[this->size];
-    this->temp_arr = new T[this->size];
+    size = 0;
+    arr = new T[size];
+    temp_arr = new T[size];
 
 }
 
@@ -15,9 +15,43 @@ SimpleVector_Move<T> :: SimpleVector_Move() noexcept {
 template < class T >
 SimpleVector_Move<T> :: ~SimpleVector_Move() noexcept {
 
-    delete[] this->arr;
+    delete[] arr;
 
     std::cout << "The destructor was invoked here" << std::endl;
+
+}
+
+// copy constructor
+template < class T >
+SimpleVector_Move<T> :: SimpleVector_Move(const SimpleVector_Move& obj) {
+    
+    this->size = obj.size;
+    this->arr  = new T[this->size];
+
+    for(int x = 0; x < this->size; x++) {
+        *(this->arr + x) = *(obj.arr + x);
+    }
+}
+
+// copy assignment operator
+template < class T >
+SimpleVector_Move<T>& SimpleVector_Move<T> :: operator=(const SimpleVector_Move& obj) {
+   
+    if(this == &obj) {
+        return *this;
+    }
+        
+    delete[] this->arr;
+    this->size = 0;
+
+    this->size = obj.size;
+    this->arr  = new T[this->size];
+
+    for(int x = 0; x < this->size; x++) {
+        *(this->arr + x) = *(obj.arr + x);
+    }
+
+    return *this;
 
 }
 
@@ -57,8 +91,8 @@ SimpleVector_Move<T>& SimpleVector_Move<T> :: operator=(SimpleVector_Move&& obj)
 template < class T >
 void SimpleVector_Move<T> :: push_back(const T& element) {
 
-    *(this->arr + this->size) = element;
-     this->size = this->size + 1;
+    *(arr + size) = element;
+     size = size + 1;
 
 }
 
@@ -66,18 +100,18 @@ void SimpleVector_Move<T> :: push_back(const T& element) {
 template < class T >
 void SimpleVector_Move<T> :: pop_back() {
 
-    if(this->size > 0) {
-       this->size = this->size - 1;
+    if(size > 0) {
+       size = size - 1;
 
-       this->temp_arr = new T[this->size];
+       temp_arr = new T[size];
 
-       for(int x = 0; x < this->size; x++) {
-            *(this->temp_arr + x) = *(this->arr + x);
+       for(int x = 0; x < size; x++) {
+            *(temp_arr + x) = *(arr + x);
        }
 
        delete[] arr;
-       this->arr = this->temp_arr;
-       this->temp_arr = nullptr;
+       arr = temp_arr;
+       temp_arr = nullptr;
     }
 
 }
@@ -86,7 +120,7 @@ void SimpleVector_Move<T> :: pop_back() {
 template < class T >
 bool SimpleVector_Move<T> :: isEmpty() const noexcept {
 
-    if(this->size == 0) {
+    if(size == 0) {
         return true;
     }
 
@@ -98,16 +132,16 @@ bool SimpleVector_Move<T> :: isEmpty() const noexcept {
 template < class T >
 int SimpleVector_Move<T> :: getSize() const noexcept {
     
-    return this->size;
+    return size;
 }
 
 // remove all elements from the current array
 template < class T >
 void SimpleVector_Move<T> :: clear() {
 
-    delete[] this->arr;
-    this->arr = nullptr;
-    this->size = 0;
+    delete[] arr;
+    arr = nullptr;
+    size = 0;
 
 }
 
@@ -115,8 +149,8 @@ void SimpleVector_Move<T> :: clear() {
 template < class T >
 T& SimpleVector_Move<T> :: operator[](const int& index) {
 
-    if(index >= 0 && index < this->size) {
-        return *(this->arr + index);
+    if(index >= 0 && index < size) {
+        return *(arr + index);
     }
 
     std::cerr << "index "<< index << " is out of range" << std::endl;

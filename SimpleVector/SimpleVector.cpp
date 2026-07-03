@@ -5,9 +5,9 @@
 template< class T >
 SimpleVector<T> :: SimpleVector() {
 
-    this->size = 0;
-    this->arr = new T[this->size];
-    this->temp_arr = new T[this->size];
+    size = 0;
+    arr = new T[size];
+    temp_arr = new T[size];
 
 }
 
@@ -15,7 +15,7 @@ SimpleVector<T> :: SimpleVector() {
 template< class T >
 SimpleVector<T> :: ~SimpleVector() {
 
-    delete[] this->arr;
+    delete[] arr;
 
     std::cout << "The destructor was invoked here" << std::endl;
 
@@ -68,18 +68,18 @@ void SimpleVector<T> :: push_back(T element) {
 template < class T >
 void SimpleVector<T> :: pop_back() {
 
-    if(this->size > 0) {
-       this->size = this->size - 1;
+    if(size > 0) {
+       size = size - 1;
 
-       this->temp_arr = new T[this->size];
+       temp_arr = new T[size];
 
-       for(int x = 0; x < this->size; x++) {
-            *(this->temp_arr + x) = *(this->arr + x);
+       for(int x = 0; x < size; x++) {
+            *(temp_arr + x) = *(arr + x);
        }
 
        delete[] arr;
-       this->arr = this->temp_arr;
-       this->temp_arr = nullptr;
+       arr = temp_arr;
+       temp_arr = nullptr;
 
     }
 
@@ -88,7 +88,7 @@ void SimpleVector<T> :: pop_back() {
 // Check if the array is empty
 template < class T >
 bool SimpleVector<T> :: isEmpty() {
-    if(this->size == 0) {
+    if(size == 0) {
         return true;
     }
 
@@ -99,7 +99,7 @@ bool SimpleVector<T> :: isEmpty() {
 template < class T >
 int SimpleVector<T> :: getSize() {
 
-    return this->size;
+    return size;
 
 }
 
@@ -107,7 +107,7 @@ int SimpleVector<T> :: getSize() {
 template < class T >
 T& SimpleVector<T> :: operator[](const int& index) {
 
-    if(index >= 0 && index < this->size) {
+    if(index >= 0 && index < size) {
         return *(arr + index);
     }
 
