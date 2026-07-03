@@ -7,9 +7,9 @@
 template < class T, class Allocator >
 custom_vector<T, Allocator> :: custom_vector(const Allocator& alloc) {
     this->alloc = alloc;
-    this->ptr   = nullptr;
-    this->size  = 0;
-    this->current_capacity = 0;
+    ptr   = nullptr;
+    size  = 0;
+    current_capacity = 0;
 } 
 
 // inititializer list constructor
@@ -17,13 +17,13 @@ template < class T, class Allocator >
 custom_vector<T, Allocator> :: custom_vector(std::initializer_list<T> init, const Allocator& alloc) {
     
     this->alloc = alloc;
-    this->size  = 0;
-    this->current_capacity = init.size();
-    this->ptr = traits::allocate(this->alloc, this->current_capacity);
+    size  = 0;
+    current_capacity = init.size();
+    ptr = traits::allocate(this->alloc, this->current_capacity);
 
     for (const auto& item : init) {
-        traits::construct(this->alloc, this->ptr + this->size, item);
-        ++this->size;
+        traits::construct(this->alloc, ptr + size, item);
+        ++size;
     }
 
 }
@@ -33,7 +33,7 @@ template < class T, class Allocator >
 custom_vector<T, Allocator> :: ~custom_vector() {
 
     clear();
-    traits::deallocate(this->alloc, this->ptr, this->current_capacity);
+    traits::deallocate(alloc, ptr, current_capacity);
 
 }
 
@@ -127,39 +127,39 @@ custom_vector<T, Allocator>& custom_vector<T, Allocator> :: operator=(custom_vec
 // reserve_block function to allocate memory
 template < class T, class Allocator >
 void custom_vector<T, Allocator> :: reserve_block(size_t new_capacity) {
-    if(this->current_capacity >= new_capacity) {
+    if(current_capacity >= new_capacity) {
         return;
     }
 
     // temp pointer to hold newly allocated memory location
-    pointer _ptr = traits::allocate(this->alloc, new_capacity);
+    pointer _ptr = traits::allocate(alloc, new_capacity);
 
     // copy and free elements in the old memory location(ptr) to the new(_ptr)
-    for(size_type x = 0; x < this->size; ++x) {
-        traits::construct(this->alloc, _ptr + x, std::move(*(this->ptr + x)));
-        traits::destroy(this->alloc, this->ptr + x);
+    for(size_type x = 0; x < size; ++x) {
+        traits::construct(alloc, _ptr + x, std::move(*(ptr + x)));
+        traits::destroy(alloc, ptr + x);
     }
 
     // free the old memory block
-    if(this->ptr != nullptr) {
-        traits::deallocate(this->alloc, this->ptr, this->current_capacity);
+    if(ptr != nullptr) {
+        traits::deallocate(alloc, ptr, current_capacity);
     }
 
     // assign newly created variable to "this" variables
-    this->ptr = _ptr;
-    this->current_capacity = new_capacity;
+    ptr = _ptr;
+    current_capacity = new_capacity;
 }
 
 // push_back function to add new element to the current array
 template < class T, class Allocator >
 void custom_vector<T, Allocator> :: push_back(const T& element) {
     // check if the current size of the vector is equal to its current capacity => add new memory if needed
-    if(this->size == this->current_capacity) {
-        reserve_block(this->current_capacity + 1);
+    if(size == current_capacity) {
+        reserve_block(current_capacity + 1);
     }
 
-    traits::construct(alloc, this->ptr + this->size, element);
-    ++this->size;
+    traits::construct(alloc, ptr + size, element);
+    ++size;
 }
 
 // pop_back function to remove the last element added to the array
@@ -170,16 +170,16 @@ void custom_vector<T, Allocator> :: pop_back() {
     }
 
     // decrement size => vector start index is 0
-    --this->size;
+    --size;
 
     // destroy element without deallocating memory
-    traits::destroy(this->alloc, this->ptr + this->size);
+    traits::destroy(alloc, ptr + size);
 }
 
 // check if the array is empty return true: array is empty OR false: otherwise
 template < class T, class Allocator >
 bool custom_vector<T, Allocator> :: isEmpty() const noexcept {
-    if(this->size == 0) {
+    if(size == 0) {
         return true;
     }
     else {
@@ -192,26 +192,26 @@ bool custom_vector<T, Allocator> :: isEmpty() const noexcept {
 template < class T, class Allocator >
 int custom_vector<T, Allocator> :: getSize() const noexcept {
     
-    return this->size;
+    return size;
 }
 
 // remove all elements from the current array
 template < class T, class Allocator >
 void custom_vector<T, Allocator> :: clear() {
 
-    for(size_type x = 0; x < this->size; x++) {
-        traits::destroy(this->alloc, this->ptr + x);
+    for(size_type x = 0; x < size; x++) {
+        traits::destroy(alloc, ptr + x);
     }
 
-    this->size = 0;
+    size = 0;
 }
 
 // overload the [] operator: return the value at a specific index in the array
 template < class T, class Allocator >
 T& custom_vector<T, Allocator> :: operator[](const int& index) {
 
-    if(index >= 0 && index < this->size) {
-        return *(this->ptr + index);
+    if(index >= 0 && index < size) {
+        return *(ptr + index);
     }
 
     std::cerr << "index "<< index << " is out of range" << std::endl;
@@ -223,12 +223,12 @@ T& custom_vector<T, Allocator> :: operator[](const int& index) {
 template < class T, class Allocator >
 typename custom_vector< T, Allocator >::iterator custom_vector< T, Allocator >:: begin() noexcept {
 
-    return iterator(this->ptr);
+    return iterator(ptr);
 }
 
 // return type(iterator) from end() and pass the local pointer + size of custom_vector to the iterator class i.e the last+1 element in the vector
 template < class T, class Allocator >
 typename custom_vector< T, Allocator >::iterator custom_vector< T, Allocator >:: end() noexcept {
 
-    return iterator(this->ptr + this->size);
+    return iterator(ptr + size);
 }

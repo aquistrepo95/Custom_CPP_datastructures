@@ -59,7 +59,7 @@ class genericIterator {
 
 
     private:
-       pointer ptr;     
+       pointer ptr_;     
 
 };
 

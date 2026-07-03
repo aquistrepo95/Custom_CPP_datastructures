@@ -84,7 +84,6 @@ int main() {
     std::cout << "Iterator" << std::endl;
 
     custom_vector<int>vect9 = {1,2,3,4,4,5,6,6,7,8,9,10};
-
     for(auto& m : vect9) {
         std::cout << "Elemenet in vect9 is: "<< m << std::endl;
     }

@@ -21,7 +21,7 @@ constexpr T* allocator<T> :: allocate(std::size_t size) {
 
     std::cout << "allocating: " << (size * sizeof(T)) << " bytes for: " << size << " elements of type " << typeid(T).name() << std::endl; 
 
-    // convert memory to the data type that was requested and return it to the 
+    // convert memory to the data type that was requested and return it to the calling program
     return static_cast<T*>(memory_ptr);
 }
 
