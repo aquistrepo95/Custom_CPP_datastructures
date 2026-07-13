@@ -1,5 +1,5 @@
 #include <iostream>
-#include "unique_ptr.h"
+#include "unique_ptr.hpp"
 
 // compile time constructor
 template < class T >
