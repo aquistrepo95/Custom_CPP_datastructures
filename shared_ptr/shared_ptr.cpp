@@ -1,5 +1,5 @@
 #include <iostream>
-#include "shared_ptr.h"
+#include "shared_ptr.hpp"
 
 //compile time constructor
 template < class T >
@@ -8,6 +8,7 @@ constexpr shared_ptr<T> :: shared_ptr() noexcept {
     pointer    = nullptr;
     ref_count  = nullptr;
 
+    //std::cout<< "Default constructor was invoked" << std::endl;
 }
 
 // constructor: accepts a raw pointer from heap memory allocation and assigns it to the define pointer in the class
@@ -19,7 +20,7 @@ shared_ptr<T> :: shared_ptr(T* raw_pointer) {
         ref_count = new int(1);
     }    
 
-    std::cout << "constructor was invoked" << std::endl;
+    //std::cout << "constructor was invoked" << std::endl;
 
 }
 
@@ -29,7 +30,7 @@ shared_ptr<T> :: ~shared_ptr() {
 
     reset();
 
-    std::cout << "The destructor was invoked" << std::endl;
+    //std::cout << "The destructor was invoked" << std::endl;
 
 }
 

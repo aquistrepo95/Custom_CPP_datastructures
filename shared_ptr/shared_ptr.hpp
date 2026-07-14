@@ -37,4 +37,6 @@ class shared_ptr{
 
 };
 
+#include "shared_ptr.cpp"
+
 #endif
