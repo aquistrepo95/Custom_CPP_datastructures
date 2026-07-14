@@ -22,6 +22,8 @@ struct allocator{
 
 };
 
+#include "allocator.cpp"
+
 // allocator comparison functions
 template < typename T, typename U >
 constexpr bool operator==(const allocator<T>&, const allocator<U>&) noexcept;

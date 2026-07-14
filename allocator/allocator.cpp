@@ -1,6 +1,6 @@
 #include <iostream>
 #include <new>
-#include "allocator.h"
+#include "allocator.hpp"
 
 // allocate function to allocate unitialized memory
 template < class T >
