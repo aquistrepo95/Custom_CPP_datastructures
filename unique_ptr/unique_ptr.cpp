@@ -15,7 +15,7 @@ unique_ptr<T> :: unique_ptr(T* raw_ptr) noexcept {
 
     pointer = raw_ptr;
 
-    std::cout << "constructor was invoked" << std::endl;
+    //std::cout << "constructor was invoked" << std::endl;
 }
 
 // destructor
@@ -24,7 +24,7 @@ unique_ptr<T> :: ~unique_ptr() {
 
     reset();
 
-    std::cout << "The destructor was invoked" << std::endl;
+    //std::cout << "The destructor was invoked" << std::endl;
 }
 
 // move constructor

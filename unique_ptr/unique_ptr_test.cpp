@@ -40,7 +40,7 @@ TEST_F (UniqueptrTest, UniquePtrResetTest){
     ptr_1.reset(new int(100));
     ASSERT_EQ(*ptr_1, 100);
 
-    std::cout << "ptr_1 value after reset: " << *ptr_1 << std::endl;
+    //std::cout << "ptr_1 value after reset: " << *ptr_1 << std::endl;
 }
 
 // Swap Test
@@ -50,8 +50,8 @@ TEST_F (UniqueptrTest, UniquePtrSwapTest){
     ASSERT_EQ(*ptr_1, 200);
     ASSERT_EQ(*ptr_2, 42);
 
-    std::cout << "ptr_1 value after swap: " << *ptr_1 << std::endl;
-    std::cout << "ptr_2 value after swap: " << *ptr_2 << std::endl;
+    //std::cout << "ptr_1 value after swap: " << *ptr_1 << std::endl;
+    //std::cout << "ptr_2 value after swap: " << *ptr_2 << std::endl;
 }
 
 // Release Test
@@ -61,8 +61,8 @@ TEST_F (UniqueptrTest, UniquePtrReleaseTest){
     ASSERT_NE(raw_ptr, nullptr);
     ASSERT_EQ(*raw_ptr, 42);
 
-    std::cout << "ptr_1 value after release: " << (ptr_1.get() == nullptr ? "nullptr" : std::to_string(*ptr_1)) << std::endl;
-    std::cout << "raw_ptr value after release: " << *raw_ptr << std::endl;
+    //std::cout << "ptr_1 value after release: " << (ptr_1.get() == nullptr ? "nullptr" : std::to_string(*ptr_1)) << std::endl;
+    //std::cout << "raw_ptr value after release: " << *raw_ptr << std::endl;
 
     delete raw_ptr;
 }
