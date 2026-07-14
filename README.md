@@ -1,6 +1,11 @@
 # CUSTOM IMPLEMENTATION OF C++ TEMPLATE LIBRARIES
 
-## Custom Implementation of various CPP Template classes.
+## Custom Implementation of various C++ Template Data Structures and Google Tests.
+
+## implemented with:
+* C++
+* CMAKE
+* Google Test
 
 ## These sample C++ projects were built to illustrate the following:
  * Resource Acquisition Is Initialization(RAII).
