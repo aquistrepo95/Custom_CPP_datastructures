@@ -29,3 +29,7 @@
  * Memory Allocator Aware Vector.
  * Iterator.
 
+## Tests
+* Tests were written on a Mac/Linux-like system and should work as is.
+* For Windows: "add set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)" before "FetchContent_MakeAvailable(googletest)"
+
