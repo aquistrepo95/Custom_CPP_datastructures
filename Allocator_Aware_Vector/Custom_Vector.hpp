@@ -60,4 +60,6 @@ class custom_vector{
 
 };
 
+#include "Custom_Vector.cpp"
+
 #endif //CUSTOM_VECTOR_H
